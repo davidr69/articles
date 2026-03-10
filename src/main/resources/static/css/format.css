@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+
+p, li {
+	font-size: 0.95rem;
+	line-height: 150%;
+}
+
+body {
+	background: #e2dcde;
+	font-family: 'Noto Sans', sans-serif;
+	font-weight: 400;
+	margin-left: 0;
+	margin-top: 0;
+	margin-right: 0;
+}
+
+header {
+	background-color: #F0F0FF;
+	height: 60px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	text-align: left;
+	height: 15px;
+	width: 100%;
+	font-family: 'Noto Sans', sans-serif;
+	font-size:	8px;
+}
+
+#content {
+	position: relative;
+	top: 50px;
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+
+	background: #f4f4f4;
+	color: #202020;
+	opacity: 0.9;
+}
+
+slant {
+	font-style: oblique;
+}
+
+h1 {
+	font-size: 1.2rem;
+	font-family: 'Ysabeau SC', sans-serif;
+}
+
+a, a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+blockquote {
+	font-family: 'Noto Sans', sans-serif;
+	font-weight: 400;
+	font-size: 0.75rem;
+	background: #c7cfd4;
+	border-left: 10px solid #aaa;
+	margin: 1.5em 10px;
+	padding: 0.5em 10px;
+	quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote:before {
+	color: #aaa;
+	content: open-quote;
+	font-size: 4em;
+	line-height: 0.1em;
+	margin-right: 0.25em;
+	vertical-align: -0.4em;
+}
+
+blockquote:after {
+	color: #ccc;
+	content: close-quote;
+	font-size: 4em;
+	vertical-align: -0.5em;
+	margin-right: 0.25em;
+}
+
+blockquote p {
+	display: inline;
+	text-align: justify;
+}
+
+emph {
+	font-weight: 700;
+	font-style: oblique;
+}
+
+.small {
+	font-size: 11px;
+}
+
+.titleImage {
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 0;
+	width: 100%;
+	height: 50px;
+}
+
+.floatPic {
+	float: right;
+	margin: 0 0 7px 7px;
+}
+
+.smallCaps {
+	font-variant: small-caps;
+}
+
+.tableCell {
+	border-width: 1px;
+	border-color: #c0c0c0;
+	background-color:  #606060;
+	border-style: solid;
+}
+
+.mainTitle {
+	text-align:	center;
+	font-size: 2.0rem;
+	font-weight: 700;
+  font-family: 'Ysabeau SC', sans-serif;
+}
+
+.imgLeft {
+	float: left;
+	margin: 0 15px 15px 0;
+}
+
+.imgRight {
+	float: right;
+	margin: 0 15px 15px 0;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.first-letter {
+	float: left;
+	font-family: 'Dancing Script', sans-serif;
+	font-weight: 700;
+	font-size: 48px;
+	line-height: 48px;
+	padding-right: 8px;
+	color: #9495d3;
+	padding-left: 3px;
+}

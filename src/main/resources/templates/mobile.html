@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--  Social media tags -->
+  <meta property="og:type" content="article" />
+	<meta property="og:image" th:content="'https://www.lavacro.com/imageRepo/articles/preview/' + ${article.preview}"/>
+  <meta property="og:url" th:content="'https://www.lavacro.com/articles/view?title=' + ${article.urlText}" />
+	<meta property="og:title" th:content="${article.title}" />
+  <meta property="og:site_name" content="Lavacro"/>
+	<meta property="og:description" th:content="${article.title}"/>
+
+	<title th:utext="${article.title}"></title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i">
+	<link rel="stylesheet" href="./css/format.css" type="text/css">
+	<link rel="stylesheet" href="./css/mobile.css" type="text/css">
+
+  <script type="module">
+    const commonJS = './js/common.js';
+    const { default: Common } = await import(commonJS);
+    globalThis.common = new Common();
+
+    const mobileJS = './js/mobile.js';
+    const { default: Mobile } = await import(mobileJS);
+    const mobile = new Mobile();
+    document.getElementById('handle')
+      .addEventListener('click', () => mobile.openMenu());
+  </script>
+</head>
+<body>
+<article>
+	<div id="handle"><img src="./images/burger.png" alt="nav"></div>
+	<div id="popout">
+		<div th:each="article:${articleList}" id="subMenu"><a th:href="'view?title=' + ${article.urlText}" class="menuItem" th:utext="'&nbsp;&nbsp;' + ${article.article} + '. ' + ${article.title}"></a><br/></div>
+	</div>
+
+	<div id="topNav">God, Family, Church</div>
+  <div class="topShade"></div>
+  <div id="site_logo_mobile"><img src="./images/site_logo.png" alt="site logo"></div>
+  <div style="clear: both;"></div>
+	<div id="content">
+		<div class="mainTitle" th:utext="${article.title}"></div>
+		<span th:switch="${article.sections} == null" th:remove="tag">
+			<span th:case="true" th:remove="tag"><h1>Article not found</h1></span>
+			<span th:case="*" th:remove="tag">
+				<span th:switch="${article.bgimage} != null" th:remove="tag">
+					<span th:case="true" th:remove="tag">
+						<img th:src="${imageRepo} + '/' + ${article.bgimage}" width="125" class="floatPic" alt="bgImage">
+					</span>
+					<span th:case="*" th:remove="tag"></span>
+				</span>
+
+				<span th:each="section:${article.sections}" th:remove="tag">
+					<h1 th:name="'section' + ${section.section}" th:utext="${section.title}"></h1>
+					<span th:each="paragraph:${section.paragraphs}" th:remove="tag">
+						<span th:utext="'<p>' + ${paragraph.content} + '</p>'" th:remove="tag"></span>
+					</span>
+				</span>
+			</span>
+		</span>
+	</div>
+</article>
+<div th:switch="${resp.published} != null" th:remove="tag">
+		<footer th:text="'Published on ' + ${article.published}"></footer>
+	</div>
+</body>

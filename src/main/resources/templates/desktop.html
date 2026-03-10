@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!--  Social media tags -->
+  <meta property="og:type" content="article" />
+  <meta property="og:image" th:content="'https://www.lavacro.com/imageRepo/articles/preview/' + ${article.preview}"/>
+  <meta property="og:url" th:content="'https://www.lavacro.com/articles/view?title=' + ${article.urlText}" />
+  <meta property="og:title" th:content="${article.title}" />
+  <meta property="og:site_name" content="Lavacro"/>
+  <meta property="og:description" th:content="${article.title}"/>
+
+  <title th:utext="${article.title}"></title>
+  <link rel="stylesheet" href="./css/format.css" type="text/css">
+  <link rel="stylesheet" href="./css/desktop.css" type="text/css">
+  <link rel="stylesheet" href="./css/menu.css" type="text/css">
+
+  <script type="module">
+    const commonJS = './js/common.js';
+    const { default: Common } = await import(commonJS);
+    globalThis.common = new Common();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      init();
+    })
+  </script>
+
+	<script type="text/javascript" src="js/desktop.js"></script>
+</head>
+<body>
+<article>
+	<div id="topNav">God, Family, Church</div>
+  <div class="topShade"></div>
+  <div id="site_logo"><img src="./images/site_logo.png" alt="site logo"></div>
+
+	<div style="clear: both;"></div>
+	<div id="content">
+    <div style='font-family: "Open Sans", sans-serif;'>
+      <div class="dropdown cell" style="width: 20%;">
+        <span>More Articles</span>
+        <div class="dropdown-content">
+          <a th:each="article:${articleList}" th:href="'view?title=' + ${article.urlText}" th:utext="${article.publishedDate} + ': ' + ${article.title}"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mainTitle" th:utext="${article.title}"></div>
+
+		<div th:switch="${article.sections} == null" th:remove="tag">
+			<div th:case="true" th:remove="tag"><h1>Article not found</h1></div>
+      <!-- content window -->
+			<div th:case="*" th:remove="tag">
+				<span th:switch="${article.bgimage} != null" th:remove="tag">
+					<span th:case="true" th:remove="tag">
+						<img th:src="${imageRepo} + '/' + ${article.bgimage}" width="125" class="floatPic" alt="background">
+					</span>
+					<span th:case="*" th:remove="tag"></span>
+				</span>
+
+				<div th:each="section:${article.sections}" th:remove="tag">
+					<h1><span th:name="'section' + ${section.section}" th:utext="${section.title}">blah</span></h1>
+					<span th:each="paragraph:${section.paragraphs}" th:remove="tag">
+						<span th:utext="'<p>' + ${paragraph.content} + '</p>'" th:remove="tag"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</article>
+<div th:switch="${resp.published} != null" th:remove="tag">
+		<footer th:text="'Published on ' + ${article.published}"></footer>
+</div>
+</body>

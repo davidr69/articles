@@ -1,0 +1,116 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: articles-config-init
+data:
+  VAULT_REQUEST: |
+    {
+      "vault_request": [{
+        "mount": "lavacro",
+        "path": "prod/database/mongodb",
+        "items": [{
+          "key": "articles_secret",
+          "label": "database.password"
+        }]
+      }],
+      "file_path": "/var/tmp/vault/vault.properties"
+    }
+  MOUNT_PATH: "/var/tmp/vault"
+  VAULT_ADDR: "http://vault.lavacro.net:8201"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: articles-app
+  labels:
+    app: articles
+    tier: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: articles
+        tier: web
+    spec:
+      volumes:
+        - name: vault-token
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Mi
+      initContainers:
+        - name: vault-retrieve
+          image: "registry:5000/govault:1.0.2"
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: articles-config-init
+            - secretRef:
+                name: articles-secrets
+          volumeMounts:
+            - name: vault-token
+              mountPath: "/var/tmp/vault"
+      containers:
+      - name: articles
+        image: "registry:5000/articles:3.4.10"
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: "SPRING_CONFIG_ADDITIONAL_LOCATION"
+            value: "/var/tmp/vault/vault.properties"
+        volumeMounts:
+          - name: vault-token
+            mountPath: "/var/tmp/vault"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "384Mi"
+            cpu: "500m" # 1/2 CPU
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8445
+          timeoutSeconds: 60
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8445
+          timeoutSeconds: 3
+          initialDelaySeconds: 60
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: articles-service
+spec:
+  selector:
+    app: articles
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8445
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: articles-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: articles.cloud.lavacro.net
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: articles-service
+            port:
+              number: 80

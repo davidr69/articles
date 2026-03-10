@@ -1,0 +1,18 @@
+server:
+  port: 8445
+
+application:
+  imageRepo: www.lavacro.com/imageRepo/articles
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+    health:
+      enabled: true
+
+database:
+  url: mongodb.lavacro.net:27017
+  name: articles
+  username: articles

@@ -1,0 +1,59 @@
+.dropdown {
+	position: relative;
+	display: inline-block;
+	font-size: 13px;
+	text-decoration: none;
+	color: #202060;
+	background-color: #b7cdd0;
+	z-index: 1000;
+	vertical-align: middle; /* keep it aligned with neighboring text */
+	margin: 0; /* avoid pushing adjacent text */
+	padding: 0.25em 0.5em; /* small padding but won't expand layout unexpectedly */
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	background-color: #f9f9f9;
+	min-width: 300px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+	font-size: 13px;
+	z-index: 1100;
+	font-family: 'Noto Sans', sans-serif;
+	/* make dropdown content not affect surrounding flow */
+	pointer-events: auto;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+	z-index: 1100;
+}
+
+.cell {
+	border: 1px solid #9daca8;
+	background-color: #d4ddd8;
+	display: inline-block;
+	vertical-align: middle;
+	width: auto;
+	padding: 5px;
+	cursor: pointer;
+	z-index: 1000;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 6px 12px;
+	text-decoration: none;
+	display: block;
+	z-index: 1100;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropbtn {
+	background-color: #3e8e41;
+}
