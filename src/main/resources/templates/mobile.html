@@ -31,7 +31,7 @@
 <article>
 	<div id="handle"><img src="./images/burger.png" alt="nav"></div>
 	<div id="popout">
-		<div th:each="article:${articleList}" id="subMenu"><a th:href="'view?title=' + ${article.urlText}" class="menuItem" th:utext="'&nbsp;&nbsp;' + ${article.article} + '. ' + ${article.title}"></a><br/></div>
+		<div th:each="article:${articleList}" id="subMenu"><a th:href="'view?title=' + ${article.urlText}" class="menuItem" th:utext="'&nbsp;&nbsp;' + ${article.publishedDate} + '&nbsp;&nbsp;' + ${article.title}"></a><br/></div>
 	</div>
 
 	<div id="topNav">God, Family, Church</div>
@@ -45,7 +45,7 @@
 			<span th:case="*" th:remove="tag">
 				<span th:switch="${article.bgimage} != null" th:remove="tag">
 					<span th:case="true" th:remove="tag">
-						<img th:src="${imageRepo} + '/' + ${article.bgimage}" width="125" class="floatPic" alt="bgImage">
+						<img th:src="${imageRepo} + '/' + ${article.bgimage}" width="125" class="floatPic" alt="background">
 					</span>
 					<span th:case="*" th:remove="tag"></span>
 				</span>

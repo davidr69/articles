@@ -17,9 +17,9 @@
 	left: 0;
 	top: 100%;
 	background-color: #f9f9f9;
-	min-width: 300px;
+	min-width: 325px;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-	font-size: 13px;
+	font-size: 0.85rem;
 	z-index: 1100;
 	font-family: 'Noto Sans', sans-serif;
 	/* make dropdown content not affect surrounding flow */
@@ -51,7 +51,7 @@
 }
 
 .dropdown-content a:hover {
-	background-color: #f1f1f1;
+	background-color: #e0e0e0;
 }
 
 .dropdown:hover .dropbtn {

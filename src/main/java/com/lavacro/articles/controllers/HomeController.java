@@ -3,8 +3,8 @@ package com.lavacro.articles.controllers;
 import com.lavacro.articles.services.ArticleService;
 import com.lavacro.articles.model.ArticleDTO;
 import com.lavacro.articles.properties.ApplicationProperites;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class HomeController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 	private final ArticleService articleService;
 	private final ApplicationProperites appProps;
 
@@ -31,7 +31,7 @@ public class HomeController {
 			HttpServletRequest req,
 			@RequestParam(value = "title", required = false) String title
 	) {
-		LOGGER.info("Request: title='{}'", title);
+		log.info("Request: title='{}'", title);
 		String proto = req.getRequestURL().toString().split(":")[0];
 		String agent = req.getHeader("User-Agent");
 

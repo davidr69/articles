@@ -16,11 +16,11 @@ export default class Mobile {
 	openMenu = () => {
 		let counter = 1;
 		this.handle.style.display = '';
-		this.popout.style.left = '-250px';
+		this.popout.style.left = '-300px';
 		let interval = setInterval(() => {
 			this.popout.style.marginLeft = counter + 'px';
 			counter += 2;
-			if (counter > 250) {
+			if (counter > 300) {
 				clearInterval(interval);
 				setTimeout(() => {
 					this.#closeMenu();
@@ -30,13 +30,13 @@ export default class Mobile {
 	}
 
 	#closeMenu = () => {
-		let counter = 200;
+		let counter = 300;
 		let interval = setInterval(() => {
 			this.popout.style.marginLeft = counter + 'px';
 			counter -= 2;
 			if (counter <= 0) {
 				clearInterval(interval);
-				this.popout.style.marginLeft = '-250px';
+				this.popout.style.marginLeft = '-300x';
 				this.handle.style.display = 'inline';
 			}
 		}, 2);

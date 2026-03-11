@@ -15,9 +15,9 @@ html {
 
 #popout {
 	background-color: #e0e0e8 !important;
-	width: 250px;
+	width: 300px;
 	position: absolute;
-	left: -250px;
+	left: -300px;
 	top: 50px;
 	z-index: 1500;
 }

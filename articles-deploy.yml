@@ -56,7 +56,7 @@ spec:
               mountPath: "/var/tmp/vault"
       containers:
       - name: articles
-        image: "registry:5000/articles:3.4.10"
+        image: "registry:5000/articles:3.4.11"
         imagePullPolicy: IfNotPresent
         env:
           - name: "SPRING_CONFIG_ADDITIONAL_LOCATION"
